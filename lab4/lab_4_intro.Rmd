@@ -1,6 +1,6 @@
 ---
 title: "Lab 4 Intro"
-date: "`r Sys.Date()`"
+date: "1/15/26"
 output: ioslides_presentation
 ---
 

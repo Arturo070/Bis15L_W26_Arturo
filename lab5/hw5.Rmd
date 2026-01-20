@@ -1,7 +1,7 @@
 ---
 title: "Homework 5"
-author: "Your Name Here"
-date: "`r Sys.Date()`"
+author: "Arturo Alvarez"
+date: "1/20/2026"
 output:
   html_document: 
     theme: spacelab
@@ -23,21 +23,23 @@ Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1
 
 **1. Load the data into a new object called `homerange`.**
 ```{r}
-
+homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 **2. What is the structure of the `homerange` data? Does it have any NA's? Do a quick exploratory analysis of your choice below.**
 ```{r}
-
+names(homerange)
 ```
 
 ```{r}
-
+glimpse(homerange)
 ```
 
 **3. Which animal groups are represented in the data? Make a plot that shows the number in each class.**
 ```{r}
-
+homerange %>% 
+  ggplot(mapping=aes(x=class)) +
+  geom_bar() 
 ```
 
 **4. Are there more carnivores or herbivores represented in the data? Make a plot that shows the number in each trophic guild.**

@@ -66,11 +66,16 @@ ggplot(data=msleep,
        mapping=aes(x=vore, y=bodywt))+
   scale_y_log10()+
 geom_boxplot()+
+<<<<<<< HEAD
   labs(title="Range of bodywt by vore type")
+=======
+  labs(title="Range of bodywt")
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **7. Is there a relationship between body weight and total sleep time? Add appropriate labels and a title to your plot.**
 
+<<<<<<< HEAD
 #Based on the data, larger animals seem to sleep less as they grow more in body weight.
 ```{r}
 ggplot(data=msleep, 
@@ -110,6 +115,13 @@ ggplot(data=msleep,
   geom_point()+
   labs(title="Relationship between sleep_rem and sleep_total")
 ```
+=======
+**8. Which vore type tends to sleep the most? Build a plot to support your answer.**
+
+**9. Is there a relationship between brain weight and body weight? Build a plot to support your answer.**
+
+**10. Build one plot of your choice that provides additional insight into the msleep dataset. Be sure to include appropriate labels and a title.**
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

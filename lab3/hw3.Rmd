@@ -1,7 +1,14 @@
 ---
 title: "Homework 3"
 author: "Arturo Alvarez"
+<<<<<<< HEAD
 date: "2026/15/1"
+=======
+date: "`r Sys.Date(1 13, 2026)`"
+output:
+  html_document: 
+    theme: spacelab
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ---
 
 ## Instructions
@@ -17,59 +24,98 @@ In order to answer the questions below, you will need to do a little online rese
 **1. Make three new vectors that show the name, height in feet, and height in meters of the five tallest mountains in the world.**
 ```{r}
 Mountain_Names <- c("mount_everest", "K2", "Kangchenjunga", "Lhotse", "Makalu")
+<<<<<<< HEAD
 H_feet <- c(29032,28251,28169,27940,27838)
+=======
+H_feet <- c(29032,28251,29189,27940,27838)
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 H_meters <- c(8849,8611,8586,8516,8485)
 ```
 
 **2. Combine these vectors into a data frame called `mountains`.**
 ```{r}
+<<<<<<< HEAD
 mountains <- tibble(
   Mountain_Names = Mountain_Names,
   H_feet = H_feet,
   H_meters = H_meters)
+=======
+mountains <- tibble(Mountain_Names,H_feet,H_meters)
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **3. What is the mean height of the mountains in feet?**
 ```{r}
+<<<<<<< HEAD
 mean(H_feet)
+=======
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **4. When were each of these mountains first climbed (i.e. in what year)? Make a new vector `first_climbed` and add it to the `mountains` data frame.**
 ```{r}
+<<<<<<< HEAD
 first_climbed <- c(1953, 1954, 1955, 1956, 1955)
 mountains$first_climbed <- first_climbed
 ```
 
 ```{r}
+=======
+
+```
+
+```{r}
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **5. How many times have each of these mountains been climbed? Make a new vector `summits` and add it to the `mountains` data frame.**
 ```{r}
+<<<<<<< HEAD
 summits <- c(12884, 800, 532, 950, 475)
 mountains$summits <- summits
+=======
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **6. Which mountain has the highest number of fatalities? Make a new vector `fatalities` and add it to the `mountains` data frame.**
 ```{r}
+<<<<<<< HEAD
 #Mount_Everest has the highest number of fatalities
 fatalities <- c(344, 90, 50, 96, 21)
 mountains$fatalities <- fatalities
+=======
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 
 ```
 
 **7. What is the fatality rate (i.e., fatalities divided by summits) for each mountain? Create a new vector `fatality_rate` and add it to the `mountains` data frame.**
 ```{r}
+<<<<<<< HEAD
 mountains$fatality_rate <- fatalities/summits
+=======
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **8. Write your data frame to a .csv file called `mountains_data`.**
 ```{r}
+<<<<<<< HEAD
 write_csv(mountains, "mountains_data.csv")
+=======
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 **9. Clear your environment panel by clicking on the broom icon. Then read in your `mountains_data.csv` file to a new object called `mountains`.**
 ```{r}
+<<<<<<< HEAD
 mountains <- read_csv("mountains_data.csv")
+=======
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 ```{r}
@@ -78,7 +124,11 @@ mountains <- read_csv("mountains_data.csv")
 
 **10. Use a summary function of your choice to show the structure of your `mountains` data frame.**
 ```{r}
+<<<<<<< HEAD
 str(mountains)
+=======
+
+>>>>>>> 433b963ba313641c2f1664c4f1def1cde5c4b2a5
 ```
 
 ## Knit and Upload

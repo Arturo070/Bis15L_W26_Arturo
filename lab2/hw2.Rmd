@@ -1,10 +1,7 @@
 ---
 title: "Homework 2"
 author: "Arturo Alvarez"
-date: "`r Sys.Date(1/8/2026)`"
-output:
-  html_document: 
-    theme: spacelab
+date: "2026/8/1"
 ---
 
 ## Instructions
@@ -17,8 +14,7 @@ getwd()
 
 **2. Make a new folder in your lab 2 folder called `homework`. Now, change your current working directory to the `homework` folder using the setwd() function.**
 ```{r}
-#
-setwd("~/Desktop/Bis15L_W26_Arturo-main/lab2/Homework")
+#setwd("~/Desktop/Bis15L_W26_Arturo-main/lab2/Homework")
 ```
 
 **3. Assign a new object `pi` to a value of 3.14159. You should now see the object `pi` in the environment window in the top right.** 

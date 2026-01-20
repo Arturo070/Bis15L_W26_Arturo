@@ -66,16 +66,50 @@ ggplot(data=msleep,
        mapping=aes(x=vore, y=bodywt))+
   scale_y_log10()+
 geom_boxplot()+
-  labs(title="Range of bodywt")
+  labs(title="Range of bodywt by vore type")
 ```
 
 **7. Is there a relationship between body weight and total sleep time? Add appropriate labels and a title to your plot.**
 
+#Based on the data, larger animals seem to sleep less as they grow more in body weight.
+```{r}
+ggplot(data=msleep, 
+       mapping=aes(x=bodywt, y=sleep_total))+
+  scale_x_log10()+
+geom_point()+
+  labs(title="Relationship between body weight and total sleep time")
+```
+  
 **8. Which vore type tends to sleep the most? Build a plot to support your answer.**
+#Based on the data, insectivores tend to sleep the most out of all vore types.
+```{r}
+ggplot(data=msleep, 
+       mapping=aes(x=vore, y=sleep_total))+
+  geom_boxplot()+
+  labs(title="Total Sleep Time by Vore Type")
+```
 
 **9. Is there a relationship between brain weight and body weight? Build a plot to support your answer.**
+#There does seem to be a relationship between brain weight and body weight. With a bigger brainweight resulting in a larger body weight and vice versa, although they don't seem to be proportional with eachother. 
+
+```{r}
+ggplot(data=msleep, 
+       mapping=aes(x=brainwt, y=bodywt))+
+  geom_point()+
+  scale_x_log10()+
+  scale_y_log10()+
+  labs(title="Relationship between Brainwt and Bodywt")
+```
 
 **10. Build one plot of your choice that provides additional insight into the msleep dataset. Be sure to include appropriate labels and a title.**
+#This data set provides extra insight on the relationship between the amount of rem sleep to ones total sleep, giving a positive relationship between the two. With more total sleep resulting in more time in rem sleep till eventually capping off at around 17 hours.
+
+```{r}
+ggplot(data=msleep, 
+       mapping=aes(x=sleep_rem, y=sleep_total))+
+  geom_point()+
+  labs(title="Relationship between sleep_rem and sleep_total")
+```
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

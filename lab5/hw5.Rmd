@@ -8,26 +8,28 @@ output:
 ---
 
 ## Instructions
-Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Any plots must have appropriate titles and aesthetics.  
+
+Answer the following questions and/or complete the exercises in RMarkdown. Please embed all of your code and push the final work to your repository. Your report should be organized, clean, and run free from errors. Remember, you must remove the `#` for any included code chunks to run. Any plots must have appropriate titles and aesthetics.
 
 ## Load the tidyverse
+
 ```{r}
 library("tidyverse")
 options(scipen=999) #turn off scientific notation
 ```
 
 ## Data
-**Database of vertebrate home range sizes.** 
-Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. http://dx.doi.org/10.1086/682070.  
-Data: http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1  
+
+**Database of vertebrate home range sizes.** Reference: Tamburello N, Cote IM, Dulvy NK (2015) Energy and the scaling of animal space use. The American Naturalist 186(2):196-211. <http://dx.doi.org/10.1086/682070>.\
+Data: <http://datadryad.org/resource/doi:10.5061/dryad.q5j65/1>
 
 **1. Load the data into a new object called `homerange`.**
+
 ```{r}
 homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
-**2. What is the structure of the `homerange` data? Does it have any NA's? Do a quick exploratory analysis of your choice below.**
-#Yes there does appear to be NA's in many of the quantitive data points. With it showcasing different species by their class, body size, and many other variables.
+**2. What is the structure of the `homerange` data? Does it have any NA's? Do a quick exploratory analysis of your choice below.** #Yes there does appear to be NA's in many of the quantitive data points. With it showcasing different species by their class, body size, and many other variables.
 
 ```{r}
 names(homerange)
@@ -38,6 +40,7 @@ glimpse(homerange)
 ```
 
 **3. Which animal groups are represented in the data? Make a plot that shows the number in each class.**
+
 ```{r}
 homerange %>% 
   ggplot(mapping=aes(x=class)) +
@@ -46,7 +49,7 @@ homerange %>%
 
 **4. Are there more carnivores or herbivores represented in the data? Make a plot that shows the number in each trophic guild.**
 
-#The plot shows that there are more carnivores than there are herbivores. 
+#The plot shows that there are more carnivores than there are herbivores.
 
 ```{r}
 homerange %>% 
@@ -55,10 +58,11 @@ homerange %>%
 ```
 
 **5. Which herbivorous mammals have homeranges greater than 1,000,000 m²? Show only the common name, order, mean homerange size, and mean body mass. Arrange the data in descending order by homerange size and show only the top 10 species.**
+
 ```{r}
 homerange %>% 
   filter(class=="mammalia",
-      trophic.guild=="Herbivore",
+      trophic.guild=="herbivore",
       mean.hra.m2>1000000) %>% 
   select(common.name,order,mean.hra.m2,mean.mass.g)%>% 
   arrange(desc(mean.hra.m2))%>% 
@@ -66,40 +70,46 @@ homerange %>%
 ```
 
 **6. Which two species have the largest and smallest homerange sizes?**
-```{r}
-homerange %>%
-  filter(class == "mammalia",
-    trophic.guild == herbivore,
-    mean.hra.m2 > 1000000) %>% 
-  select(common.name,order,mean.hra.m2,mean.mass.g) %>% 
-  arrange(mean.hra.m2) %>% 
-  slice(c(1, n()))
 
+```{r}
+homerange %>% 
+  select(species,common.name,order,mean.hra.m2,mean.mass.g)%>% 
+  arrange(desc(mean.hra.m2))%>% 
+  slice_head(n=2)
 ```
 
 ```{r}
-
+homerange %>% 
+  select(species,common.name,order,mean.hra.m2,mean.mass.g)%>% 
+  arrange(mean.hra.m2)%>% 
+  slice_head(n=2)
 ```
 
 **7. Which carnivorous mammals have the largest homeranges?**
-```{r}
 
+```{r}
+homeranges
+  filter()
 ```
 
 **8. Is there a relationship between body mass and homerange size? Make a scatterplot to show this relationship. Be sure to include appropriate labels and a title.**
+
 ```{r}
 
 ```
 
 **9. Use filter to extract the data for only birds and mammals. Then make a plot that compares the homerange sizes of these two groups. Be sure to include appropriate labels and a title.**
+
 ```{r}
 
 ```
 
 **10. Do one additional exploratory analysis of your choice. Before writing the code, write the question you are trying to answer. The question should be biologically meaningful and appropriate for the data. It must include at least one `filter()`, `select()`, and `arrange()`.**
+
 ```{r}
 
 ```
 
 ## Knit and Upload
-Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  
+
+Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!

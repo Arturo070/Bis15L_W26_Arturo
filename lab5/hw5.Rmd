@@ -27,6 +27,8 @@ homerange <- read_csv("data/Tamburelloetal_HomeRangeDatabase.csv")
 ```
 
 **2. What is the structure of the `homerange` data? Does it have any NA's? Do a quick exploratory analysis of your choice below.**
+#Yes there does appear to be NA's in many of the quantitive data points. With it showcasing different species by their class, body size, and many other variables.
+
 ```{r}
 names(homerange)
 ```
@@ -43,17 +45,35 @@ homerange %>%
 ```
 
 **4. Are there more carnivores or herbivores represented in the data? Make a plot that shows the number in each trophic guild.**
-```{r}
 
+#The plot shows that there are more carnivores than there are herbivores. 
+
+```{r}
+homerange %>% 
+  ggplot(mapping=aes(x=trophic.guild)) +
+  geom_bar() 
 ```
 
 **5. Which herbivorous mammals have homeranges greater than 1,000,000 m²? Show only the common name, order, mean homerange size, and mean body mass. Arrange the data in descending order by homerange size and show only the top 10 species.**
 ```{r}
-
+homerange %>% 
+  filter(class=="mammalia",
+      trophic.guild=="Herbivore",
+      mean.hra.m2>1000000) %>% 
+  select(common.name,order,mean.hra.m2,mean.mass.g)%>% 
+  arrange(desc(mean.hra.m2))%>% 
+  slice_head(n=10)
 ```
 
 **6. Which two species have the largest and smallest homerange sizes?**
 ```{r}
+homerange %>%
+  filter(class == "mammalia",
+    trophic.guild == herbivore,
+    mean.hra.m2 > 1000000) %>% 
+  select(common.name,order,mean.hra.m2,mean.mass.g) %>% 
+  arrange(mean.hra.m2) %>% 
+  slice(c(1, n()))
 
 ```
 

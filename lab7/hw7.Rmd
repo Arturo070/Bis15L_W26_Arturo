@@ -1,7 +1,7 @@
 ---
 title: "Homework 7"
-author: "Your Name Here"
-date: "`r Sys.Date()`"
+author: "Arturo Alvarez"
+date: "1/27/2026"
 output:
   html_document: 
     theme: spacelab
@@ -23,58 +23,70 @@ Reference: [Chiyo, Patrick I., Vincent Obanda, and David K. Korir. “Illegal tu
 
 **1. Before starting data analysis, read the abstract of the paper to get an idea of the questions being asked. In 2-3 sentences, describe what the study is testing and the variables involved.**  
 \
-\
-\
-\
-\
+#The study is testing whether the harvesting of wild elephant tusks had caused an decline in tusk size. Testing if wild harvesting of large tusks has led to smaller tusks in newer generations, thus seeing if tusk length is hertible. Using varibales of tusk size, homogeneity amoung groups, tusk length, circumfrence, geneder, and relative size among generations to test this. 
 
 **2. Load `elephants.csv` and store it as a new object called `elephants`.**  
-\
-\
-\
-\
-\
+
+
+```{r}
+elephants<-read_csv("data/elephants.csv")
+```
+
 
 **3. Clean the data by converting variable names to lowercase with no spaces or special characters.**  
 \
-\
-\
-\
-\
+```{r}
+elephants_c<-elephants %>% 
+  clean_names()
+```
+
 
 **4. Use one or more of the summary functions you have learned to get an idea of the structure of the data.**   
 \
-\
-\
-\
+```{r}
+glimpse(elephants_c)
+```
 \
 
 **5. Use `mutate()` Change the variables `years_of_sample_collection`, `elephant_id`, and `sex` to factors. Be sure to store the output as a new dataframe and use it for the remaining questions.**  
 \
-\
-\
-\
+```{r}
+elephants_f <- elephants_c %>% 
+  mutate(years_of_sample_collection=as.factor
+         (years_of_sample_collection),
+         elephant_id=as.factor(elephant_id),
+         sex=as.factor(sex))
+```
+
 \
 
 **6. From which years were data collected? Show the sample periods below.**  
 \
-\
-\
-\
+```{r}
+elephants_f %>% 
+  ggplot(mapping =  aes(x=years_of_sample_collection)) +
+  geom_bar()
+```
 \
 
 **7. How many males and females were sampled in this study?**  
 \
-\
-\
-\
+```{r}
+elephants_f %>% 
+  count(sex)
+```
+
 \
 
 **8. What is the mean, median, and standard deviation for age of males and females included in the study? Separate the results by year of sample collection. Does the sampling look even between years and sexes?**  
 \
-\
-\
-\
+```{r}
+#elephants_f %>% 
+ # filter()
+  #summarize()
+  
+```
+
 \
 
 **9. Is age (independent variable) a positive predictor of tusk length (dependent variable)? Create a plot that shows the relationship between these variables and add a linear model fit line.**  

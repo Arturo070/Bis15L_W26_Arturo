@@ -88,8 +88,9 @@ homerange %>%
 **7. Which carnivorous mammals have the largest homeranges?**
 
 ```{r}
-homeranges
-  filter()
+homeranges %>% 
+  filter(trophic.guild=="carnivore")
+arrange()
 ```
 
 **8. Is there a relationship between body mass and homerange size? Make a scatterplot to show this relationship. Be sure to include appropriate labels and a title.**

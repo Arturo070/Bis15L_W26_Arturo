@@ -207,9 +207,8 @@ mammals %>%
 mammals %>% 
   ggplot(mapping=aes(x=gestation, y=newborn))+
   geom_point()+
-  geom_smooth(ge)
-  
-  
+  scale_x_log10()+
+  geom_smooth(method="lm")
 ```
 
 4. Which mammal has the longest life span in years?  

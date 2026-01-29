@@ -27,7 +27,7 @@ library("palmerpenguins") #load the palmerpenguins package
 These data are from: Gorman KB, Williams TD, Fraser WR (2014). Ecological sexual dimorphism and environmental variability within a community of Antarctic penguins (genus _Pygoscelis_). PLoS ONE 9(3):e90081. https://doi.org/10.1371/journal.pone.0090081
 
 ## Review  
-In the previous lab, we used `select()` to extract columns of interest from a data frame. This helps us focus our attention on the variables relevant to our question. However, it doesn't allow us to extract information in rows. The `filter()` function allows us to extract data in rows that meet specific criteria.  
+In the previous lab, we used `select()` to extract columns of interest from a data frame. This helps us focus our attention on the variables arelevant to our question. However, it doesn't allow us to extract information in rows. The `filter()` function allows us to extract data in rows that meet specific criteria.  
 
 ## `filter()`
 Unlike `select()`, `filter()` allows us to extract data that meet specific criteria within a row. Let's say that we are interested only in the Adelie penguins from the `penguins` data frame. We can use `filter()` to extract these observations.  

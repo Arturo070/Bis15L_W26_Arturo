@@ -106,12 +106,17 @@ ggplot(data=penguins,
 
 Notice the warning! R is telling us that there are some missing values in our data. This is common in real world data sets. R automatically omits these missing values when plotting. We can also deal with the NA's explicitly using the `na.rm=T` function.  
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point(na.rm=T) #add the plot type, disregard NA's
 ```
 
 To add a regression (best of fit) line, we add another layer.
 ```{r}
-
+ggplot(data=penguins, #specify the data
+       mapping=aes(x=body_mass_g, y=flipper_length_mm))+ #map the aesthetics
+  geom_point()+ #add the plot type
+  geom_smooth(method=lm, se=T) #add a regression line
 ```
 
 This graph is fine, but it doesn't distinguish between species. It might be helpful for the reader to see how each species is represented. We can do this by mapping the color aesthetic to species.
@@ -154,7 +159,7 @@ names(penguins)
 ```
 
 ```{r}
-ggplot(data=penguins,
+ggplot(data=penguins,#specify the data
        mapping=aes(x=bill_length_mm, y=bill_depth_mm))+
       geom_point(na.rm = T)+
       geom_smooth(method=lm,se=F)+
@@ -176,15 +181,15 @@ ggplot(data=penguins,
 What if we want to use the color aesthetic like we did for `geom_point` above? Let's try...
 ```{r}
 ggplot(data=penguins,
-       mapping=aes(x=species))+
-  geom_bar(mapping=aes(color=species))
+       mapping=aes(x=species))+#map the aesthetics
+  geom_bar(mapping=aes(color=species))#good for counts
 ```
 
 This doesn't work because the color aesthetic is being applied to the bars themselves. Instead, we need to use `fill` to color the inside of the bars.
 ```{r}
 ggplot(data=penguins,
-       mapping=aes(x=species))+
-  geom_bar(mapping=aes(fill=species))
+       mapping=aes(x=species))+#map the aesthetics
+  geom_bar(mapping=aes(fill=species))#good for counts
 ```
 
 ## Practice

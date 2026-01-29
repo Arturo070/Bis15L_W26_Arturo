@@ -142,7 +142,7 @@ elephants_m<-elephants_f %>%
 ggplot(elephants_m,
        aes(x = years_of_sample_collection, y = tusk_length_in_cm)) +
   geom_boxplot()
-#Graphs only the mature
+#Graphs only mature elephants
 ```
 
 \

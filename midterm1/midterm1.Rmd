@@ -1,7 +1,7 @@
 ---
 title: "Midterm 1 W26"
-author: "Your Name Here"
-date: "`r Sys.Date()`"
+author: "Arturo Alvarez"
+date: "1/29/2026"
 output:
   html_document: default
   pdf_document: default
@@ -30,9 +30,7 @@ library(janitor)
 
 Link to repository:
 \
-\
-\
-\
+https://github.com/Arturo070/Bis15L_W26_Arturo/edit/main/README.md
 \
 
 ## Part 2: Data and Analysis
@@ -52,100 +50,166 @@ The variables include:
 
 **Question 2. (2 points) Load the data and store it as an object called `anolis`.**
 \
-\
-\
-\
+```{r}
+anolis<-read_csv("data/anolis_dat.csv")
+```
 \
 
 **Question 3. (2 points) Use a summary function of your choice to get an idea of the structure of the data.**
 \
-\
-\
-\
+```{r}
+summary(anolis)
+```
+
+```{r}
+glimpse(anolis)
+```
+```{r}
+names(anolis)
+```
+
 \
 
 **Question 4. (2 points) Clean the variable names so they are all lowercase and without special characters or spaces. Be sure to use the cleaned data for all subsequent analyses.**
 \
-\
-\
-\
+```{r}
+anolis <- clean_names(anolis)
+```
 \
 
 **Question 5. (4 points) Convert the `habitat` and `island` variables to factors.**
 \
-\
-\
-\
+```{r}
+anolis %>% 
+  mutate(across(c(habitat,island), as.factor))
+```
 \
 
 **Question 6. (2 points) Anole species were sampled from multiple islands. Which islands are represented in the data? Display the island names.**
 \
-\
-\
-\
+#The islands represented are Cuba, Hispaniola, Jamacia, and Puerto Rico.
+
+```{r}
+anolis %>% 
+  count(island) 
+```
 \
 
 **Question 7. (4 points) Is sampling equal across islands? Create a plot to visualize the number of anole species sampled from each island. Be sure to label your axes and add a title.**
 \
-\
-\
-\
+#Sampling is not equal across islands, with Cuba having a noticibly larger number of species.
+
+```{r}
+anolis %>% 
+  ggplot(mapping=aes(x=island))+
+  geom_bar()+
+labs(title = "Anole Species per Island")
+```
 \
 
 **Question 8. (2 points) Which habitat types are represented in the data? Display the names of the habitat types.**
 \
-\
-\
-\
+#Habitat type represented are Grass-bush, Trunk-crown, Trunk-ground, and Twig. 
+
+```{r}
+anolis %>% 
+  count(habitat)
+```
 \
 
 **Question 9. (4 points) Is sampling equal across habitat types? Create a plot to visualize the number of anole species sampled from each habitat type. Be sure to label your axes and add a title.**
 \
-\
-\
-\
+#Sampling is not equal due to high variation in species count per habitat type. 
+
+```{r}
+anolis %>% 
+  ggplot(mapping=aes(x=habitat))+
+  geom_bar()+
+labs(title = "Anole Species Per Habitat_Type")
+```
 \
 
 **Question 10. (4 points) The morphology of anoles varies based on their habitat. How does the range of hindlimb length compare among different habitats? Create a plot to visualize the distribution of hindlimb lengths across habitat types. Be sure to label your axes and add a title.**
 \
-\
-\
-\
+#The hindlimp length varies greatly among different habitats, with Trunk_ground showing the longest average length.
+
+```{r}
+ggplot(anolis,
+       mapping=aes(x = habitat, y = hindlimb_length_mm)) +
+  geom_boxplot()+
+labs(title = "Hindlimb length Among Habitats")
+```
 \
 
 **Question 11. (4 points) The plot above is compelling, but don't we expect larger lizards to have longer limbs? What about tail length? Shouldn't longer lizards have longer tails? To correct for this, make two new columns: 1. `ratio_of_hindlimb_to_body`, and 2. `ratio_of_tail_to_body`. Don't forget to add these columns to the anolis data frame.**
 \
-\
-\
-\
+```{r}
+anolis <- anolis %>% 
+  mutate(ratio_of_hindlimb_to_body=hindlimb_length_mm/body_length_mm)
+
+
+```
+
+```{r}
+anolis <- anolis %>%
+  mutate(ratio_of_tail_to_body=tail_length_mm/body_length_mm)
+
+
+```
+
+```{r}
+names(anolis)
+```
+
+
 \
 
 **Question 12. (4 points) Create a new plot that examines the distribution of `ratio_of_hindlimb_to_body` across habitat types. How does this plot differ from the one you made in Problem 10?  Be sure to label your axes and add a title.**
 \
-\
-\
-\
+#Grass-bush had the most chnage among distribution compared to the last plot, having a now greater average ratio then most other habitats other than Trunk-Ground. With the rest of the data points having a nearly identical distribution among the habitat types as the first one. 
+
+```{r}
+ggplot(anolis,
+       mapping=aes(x = habitat, y = ratio_of_hindlimb_to_body)) +
+  geom_boxplot()+
+labs(title = "Hindlimb To Body Ratio Among Habitats")
+```
 \
 
 **Problem 13. (4 points) A longer tail provides better balance and agility. Create a plot that examines the relationship between body length and tail length. Color the points by habitat type and add a line of best fit. What does this plot suggest about the relationship between body length and tail length? What do you notice about lizards in the `Grass-bush` habitat? Be sure to label your axes and add a title.**
 \
-\
-\
-\
+
+```{r}
+#ggplot(data=anolis, mapping=aes(x = body_length_mm, y = tail_length_mm)) +
+#  geom_bar(fill=habitat), position="dodge")+
+#labs(title = "Body and Tail relationship")
+```
+
 \
 
 **Problem 14. (4 points) Toepad lamellae are transverse, plate-like structures found on the ventral surface of the digits. They are a key adaptation that allows anoles to cling to and move efficiently on smooth and vertical surfaces. What is the mean number of toepad lamellae for each habitat type?**
 \
-\
-\
-\
+```{r}
+#anolis %>% 
+ # filter(toepad_lamellae_count") %>% 
+#summarize(mean_age=mean(habitat, na.rm=T),
+```
+
 \
 
 **Problem 15. (5 points) The number of toepad lamellae is significantly different for trunk-crown species. But, is this consistent across all islands? Make a plot that shows the range in number of toepad lamellae by island for trunk-crown species only. Be sure to label your axes and add a title.**
 \
-\
-\
-\
+```{r}
+#anolis<-elephants_f %>% 
+#  filter((toepad_lamellae_count=="m" & ____)|()
+
+
+#ggplot(anolis,
+#       aes(x =toepad_lamellae_count, y = )) +
+#  geom_boxplot()
+
+```
+
 \
 
 ## Submit the Midterm

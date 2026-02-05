@@ -51,7 +51,8 @@ sydneybeaches_long<-sydneybeaches %>%
 ```{r}
 sydneybeaches_long %>% 
   pivot_wider(names_from = "date",
-              values_from = "enterococci_cfu_100ml")
+              values_from = "enterococci_cfu_100ml",
+              )
 ```
 
 5. Pivot the data back so that the dates are data and not column names.

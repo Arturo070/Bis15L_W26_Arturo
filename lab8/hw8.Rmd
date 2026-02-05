@@ -73,36 +73,100 @@ fisheries_clean %>%
 
 
 6. In 2023, what were the top five countries that had the highest overall catch?
+#In 2023, the top five countiress with the highest overal catch were China, Indonesia, India, Russian Federation, and the United States of America in that order. 
+
 ```{r}
-#fisheries_clean %>% 
- # filter(period=="2023") %>% 
-#  group_by(country) %>% 
-#  summarize(period) %>% 
-#  head(5) %>% 
-#  arrange()
+fisheries_clean %>% 
+  filter(period=="2023") %>% 
+  group_by(country) %>% 
+  summarize(total_catch=sum(catch,na.rm = T)) %>% 
+  arrange(desc(total_catch))%>% 
+  slice_head(n=5)
 #Group by country
 #barPLot?
 ```
 
 7. In 2023, what were the top 10 most caught species? To keep things simple, assume `common_name` is sufficient to identify species. What does `NEI` stand for in some of the common names? How might this be concerning from a fisheries management perspective?
-```{r}
+#The top ten most caught species in 2023 were Marine fishes, Freshwater fishes, Alaska Pollock, Skipjack tuna, Anchoveta, Blue Whiting, Pacific Sardine, Yellowfin Tuna, Atlantic Herring, and Scads respectivly. NEI stands for "Not Elsewhere Included", meaning that the fish were grouped with many species together, causing a concerning issue of hiding important fishing data that could show concerns for certain species or lead to the overconsumption of a certain species.
 
+```{r}
+fisheries_clean %>% 
+  filter(period == "2023") %>% 
+  group_by(common_name) %>% 
+  summarize(total_catch = sum(catch, na.rm = TRUE)) %>% 
+  arrange(desc(total_catch)) %>% 
+  slice_head(n = 10)
 ```
 
 8. For the species that was caught the most above (not NEI), which country had the highest catch in 2023?
-```{r}
+#Removing NEI species has the country with the highest catch in 2023 to be the Russian Federation. 
 
+```{r}
+top_species <- fisheries_clean %>% 
+  filter(period == "2023",
+         !str_detect(common_name, "NEI")) %>% 
+  group_by(common_name) %>% 
+  summarize(total_catch = sum(catch, na.rm = TRUE)) %>% 
+  arrange(desc(total_catch)) %>% 
+  slice_head(n = 1) %>% 
+  pull(common_name)
 ```
 
-9. How has fishing of this species changed over the last decade (2013-2023)? Create a  plot showing total catch by year for this species.
 ```{r}
+fisheries_clean %>% 
+  filter(period == "2023",
+         common_name == top_species) %>% 
+  group_by(country) %>% 
+  summarize(total_catch = sum(catch, na.rm = TRUE)) %>% 
+  arrange(desc(total_catch)) %>% 
+  slice_head(n = 1)
+```
+9. How has fishing of this species changed over the last decade (2013-2023)? Create a  plot showing total catch by year for this species.
+#Over the last decade, the fishing of the Alaska Pollock, while fluctuating, seems to show a pattern of increased fishing over the decade. 
 
+```{r}
+species_trend <- fisheries_clean %>% 
+  filter(common_name == top_species,
+         period >= 2013,
+         period <= 2023) %>% 
+  group_by(period) %>% 
+  summarize(total_catch = sum(catch, na.rm = TRUE))
+```
+
+```{r}
+ggplot(species_trend, aes(x = factor(period), y = total_catch)) +
+  geom_col() +
+  labs(
+    title = "Fishing of Alaska pollock over the years",
+    x = "Year",
+    y = "Total Catch"
+  ) 
 ```
 
 10. Perform one exploratory analysis of your choice. Make sure to clearly state the question you are asking before writing any code.
+#I wish to show how total fisheries catch vary between continents in 2023.
+
+#Based on the graph given, Asia has a vastly higher amount of catch in 2023 compared to the other continents, with Oceania having an extremly low amount. This potentially shows how Asia may be the most suitable place for their harvesting.
+
+```{r}
+fisheries_clean %>% 
+  filter(period == "2023") %>% 
+  group_by(continent) %>% 
+  summarize(total_catch = sum(catch, na.rm = TRUE)) %>% 
+  ggplot(aes(x = continent, y = total_catch)) +
+  geom_col() +
+  coord_flip() +
+  labs(
+    title = "Total Fisheries Catch by Continent (2023)",
+    x = "Continent",
+    y = "Total Catch"
+  )
+```
+
 ```{r}
 
 ```
+
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean!  

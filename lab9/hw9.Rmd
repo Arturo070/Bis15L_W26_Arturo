@@ -49,44 +49,70 @@ sydneybeaches_long<-sydneybeaches %>%
 
 4. Pivot the data such that the dates are column names and each beach only appears once (wide format). Name the object `sydneybeaches_wide`
 ```{r}
-sydneybeaches_long %>% 
+syndeybeaches_wide<-sydneybeaches_long %>% 
   pivot_wider(names_from = "date",
               values_from = "enterococci_cfu_100ml",
               )
+syndeybeaches_wide
 ```
 
 5. Pivot the data back so that the dates are data and not column names.
 ```{r}
-
+syndeybeaches_wide %>%
+  pivot_longer(-site, 
+               names_to = "date",
+               values_to = "enterococci_cfu_100ml")
 ```
 
 6. We haven't dealt much with dates yet, but separate the date into columns day, month, and year. Do this on the `sydneybeaches_long` data.
 ```{r}
-
+sydneybeaches_long<-sydneybeaches_long%>%
+  separate(date, into = c("day","month","year"))
+```
+```{r}
+sydneybeaches_long
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
 ```{r}
+sydneybeaches_long %>%
+  select(year,site,enterococci_cfu_100ml)%>%
+  group_by(year)%>%
+  summarize(avg_ent=mean(enterococci_cfu_100ml, na.rm=T))
 
 ```
 
 8. Make the output from question 7 easier to read by pivoting it to wide format.
 ```{r}
+sydneybeaches_long %>%
+  select(year,site,enterococci_cfu_100ml)%>%
+  group_by(year)%>%
+  summarize(avg_ent=mean(enterococci_cfu_100ml, na.rm=T)) %>% 
+  pivot_wider(names_from = year,
+              values_from = avg_ent)
 
 ```
 
 9. What was the most polluted beach in 2013?
 ```{r}
-
+sydneybeaches_long %>% 
+  filter(year==2013) %>% 
+  group_by(site) %>% 
+  summarize(pollution=sum(enterococci_cfu_100ml)) %>% 
+  arrange(desc(pollution))
 ```
 
 ```{r}
-
+sydneybeaches
 ```
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
 ```{r}
-
+sydneybeaches %>% 
+  select(-latitude,-longitude) %>% 
+  group_by(beach_id) %>% 
+  summarize(pollution=sum(enterococci_cfu_100ml,na.rm=T)) %>% 
+  arrange(desc(pollution))
 ```
 
 ## Knit and Upload

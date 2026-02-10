@@ -564,7 +564,8 @@ wide format.</li>
 ##    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ## 1   50.6   26.3   31.2   42.2   20.7   33.1</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li>What was the most polluted beach in 2013?</li>
+<li>What was the most polluted beach in 2013? #The most polluted beach
+in 2013 was the Little Bay Beach.</li>
 </ol>
 <pre class="r"><code>sydneybeaches_long %&gt;% 
   filter(year==2013) %&gt;% 
@@ -602,7 +603,9 @@ wide format.</li>
 ## # ℹ 3,680 more rows</code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li>Explore the data! Do one analysis of your choice that includes a
-minimum of three lines of code.</li>
+minimum of three lines of code.<br />
+#This analysis tells use that the pollution is at its maximum at
+beach_id 28.0, descending in pollution level.</li>
 </ol>
 <pre class="r"><code>sydneybeaches %&gt;% 
   select(-latitude,-longitude) %&gt;% 

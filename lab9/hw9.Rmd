@@ -74,6 +74,7 @@ sydneybeaches_long
 ```
 
 7. What is the average `enterococci_cfu_100ml` by year for each beach. Think about which data you will use- long or wide.
+
 ```{r}
 sydneybeaches_long %>%
   select(year,site,enterococci_cfu_100ml)%>%
@@ -94,6 +95,8 @@ sydneybeaches_long %>%
 ```
 
 9. What was the most polluted beach in 2013?
+#The most polluted beach in 2013 was the Little Bay Beach. 
+
 ```{r}
 sydneybeaches_long %>% 
   filter(year==2013) %>% 
@@ -107,6 +110,8 @@ sydneybeaches
 ```
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
+#This analysis tells use that the pollution is at its maximum at beach_id 28.0, descending in pollution level. 
+
 ```{r}
 sydneybeaches %>% 
   select(-latitude,-longitude) %>% 

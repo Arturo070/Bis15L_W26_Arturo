@@ -110,7 +110,7 @@ sydneybeaches
 ```
 
 10. Explore the data! Do one analysis of your choice that includes a minimum of three lines of code.  
-#This analysis tells use that the pollution is at its maximum at beach_id 28.0, descending in pollution level. 
+#This analysis tells us that the pollution is at its maximum at beach_id 28.0, descending in pollution level. 
 
 ```{r}
 sydneybeaches %>% 

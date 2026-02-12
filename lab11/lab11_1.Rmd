@@ -126,7 +126,7 @@ gap %>%
 
 ## Create Categories with mutate and case_when()
 `case_when()` is a very handy function from `dplyr` which allows us to calculate a new variable from other variables. We use `case_when()` within `mutate()` to do this.`case_when()` allows us to specify multiple conditions.  
-
+;
 The approximate World Bank Income Categories are:  
 - Low income: $1,100 or less
 - Lower middle income: $1,100 to $4,500

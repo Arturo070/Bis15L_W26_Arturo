@@ -1,7 +1,7 @@
 ---
 title: "Homework 13"
-author: "Your Name Here"
-date: "`r Sys.Date()`"
+author: "Arturo Alvarez"
+date: "2/24/2026"
 output:
   html_document: 
     theme: spacelab
@@ -33,30 +33,45 @@ glimpse(amniota)
 
 2. Make any necessary replacements in the data such that all NA's appear as "NA". 
 ```{r}
-amniota %>% 
-  replace_with_na_all(condition = ~.x==-999) %>% 
-  miss_var_summary()
-amniota
+amniota <- amniota %>% 
+  replace_with_na_all(condition = ~ .x == -999)
+
+miss_var_summary(amniota)
+
+
 ```
 
 3. How many total NA's are in the data set? Use the package `naniar` to produce a summary, including percentages, of missing data in each column for the `amniota` data.
-```{r}
 
+#There is 528196 NA's in the data set. 
+```{r}
+sum(is.na(amniota))
+miss_var_summary(amniota)
 ```
 
 4. Double check your replacement using `summary`. Do you see any other potential issues? If so, fix them.
 ```{r}
-
+summary(amniota)
 ```
 
 5. Use `naniar` to visualize the number of NA's in each variable. Which variables have the most NA's?
-```{r}
+#Variables such as subspecies, female body at maturity, female svl at maturity, fledling mass, and other associated reproeductive traits have the most NA's. 
 
+```{r}
+gg_miss_var(amniota)
 ```
 
 6. Calculate the number of NAs in the `egg_mass_g` column sorted by taxonomic class; i.e. how many NA's are present in the `egg_mass_g` column in birds, mammals, and reptiles? Does this results make sense biologically? How do these results affect your interpretation of NA's?
-```{r}
+#Reptilia has the most missing values for egg mass, followed by Mallalia, and Aves. This doesnt make the most sense biologically as reptiles and birds lay eggs, so they are less expected to have less NA's in egg mass. Meanwhile, Mammals dont really lay eggs so many NA's were expected. This may mean what they use to determine NA's may vary across on the taxonomic classes. 
 
+```{r}
+amniota %>% 
+  group_by(class) %>% 
+  summarise(
+    total_species = n(),
+    egg_mass_na = sum(is.na(egg_mass_g))
+  ) %>% 
+  arrange(desc(egg_mass_na))
 ```
 
 ## Knit and Upload

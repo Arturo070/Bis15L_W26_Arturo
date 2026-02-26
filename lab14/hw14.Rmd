@@ -1,7 +1,7 @@
 ---
 title: "Lab 14 Homework"
-author: "Please Add Your Name Here"
-date: "`r Sys.Date()`"
+author: "Arturo Alvarez"
+date: "2/25/2026"
 output:
   html_document:
     theme: spacelab
@@ -36,16 +36,80 @@ sharks <- read_csv("data/SharkIncidents_1950_2022_220302.csv") %>%
 ```
 
 1. Use the range of the latitude and longitude to build an appropriate bounding box for your map.
+```{r}
+sharks %>% 
+  select(latitude, longitude) %>% 
+  summary()
+```
+```{r}
+lat <- c(32.59,41.56)
+long<- c(-124.7, -117.1)
+bbox <- make_bbox(long,lat, f=0.03)
+
+bbox
+```
+
 
 2. Load a map from `stamen` in a terrain style projection and display the map.  
 
+```{r}
+register_stadiamaps("d772f28f-9363-4de4-b633-040c81a9594a", write = FALSE)
+```
+
+```{r}
+map1 <- get_stadiamap(bbox, maptype="alidade_smooth", zoom = 7)
+```
+```{r}
+ggmap(map1)
+```
+
+
 3. Build a map that overlays the recorded observations of shark attacks in California.  
+
+```{r}
+ggmap(map1)+
+  geom_point(data=sharks, aes(longitude, latitude), size=0.8)+
+  labs(x="Longitude", y="Latitude", title="Shark Attacks in California")
+```
 
 4. Build a map that only shows the fatalities.  
 
+```{r}
+names(sharks)
+```
+
+```{r}
+shark_fatal<-sharks %>% 
+  filter(tolower(injury)=="fatal")
+
+```
+
+```{r}
+ggmap(map1)+
+  geom_point(data=shark_fatal, aes(longitude, latitude), size=0.8)+
+  labs(x="Longitude", y="Latitude", title="Fatal Sharl Attacks")
+```
+
+
 5. Build the same map (fatalities only), but this time make it interactive using `leaflet`. Also, color the points red.  
 
+```{r}
+leaflet(sharks_fatal) %>%
+  addProviderTiles("alidade_smooth") %>%
+  addCircleMarkers(~longitude, ~latitude,
+                    color = "red",
+                    radius = 5,
+                    fillOpacity = 0.8,
+                    popup = ~paste("Fatal shark attack"))
+   
+```
+
 6. Which county has the highest number of recorded shark attacks? Make a map that only shows the attacks in this county. (hint: it may help improve the map if you remove duplicate locations, i.e. multiple attacks at the same location.)
+
+```{r}
+
+```
+
 
 ## Knit and Upload
 Please knit your work as an .html file and upload to Canvas. Homework is due before the start of the next lab. No late work is accepted. Make sure to use the formatting conventions of RMarkdown to make your report neat and clean! 

@@ -87,28 +87,70 @@ shark_fatal<-sharks %>%
 ```{r}
 ggmap(map1)+
   geom_point(data=shark_fatal, aes(longitude, latitude), size=0.8)+
-  labs(x="Longitude", y="Latitude", title="Fatal Sharl Attacks")
+  labs(x="Longitude", y="Latitude", title="Fatal Shark Attacks")
 ```
 
 
 5. Build the same map (fatalities only), but this time make it interactive using `leaflet`. Also, color the points red.  
 
 ```{r}
-leaflet(sharks_fatal) %>%
-  addProviderTiles("alidade_smooth") %>%
-  addCircleMarkers(~longitude, ~latitude,
-                    color = "red",
-                    radius = 5,
-                    fillOpacity = 0.8,
-                    popup = ~paste("Fatal shark attack"))
-   
+shark_fatal %>% 
+  summarise(
+  lon_min=min(longitude, na.rm = T),
+  lon_max=max(longitude, na.rm = T),
+  lat_min=min(latitude, na.rm = T),
+  lat_max=max(latitude, na.rm = T))
+```
+```{r}
+
+lon_min <-123.7783
+lon_max <-117.28
+lat_min <-32.855	
+lat_max <-39.57833
+```
+
+
+```{r}
+leaflet(shark_fatal) %>% 
+  addProviderTiles(providers$Stadia.StamenTerrain) %>% 
+  addCircleMarkers(
+    lng = ~longitude,
+    lat = ~latitude,
+    radius = 7,
+    color = "red",
+    stroke = FALSE,
+    fillOpacity = 0.7
+  ) %>% 
+  addScaleBar(position = "bottomleft") %>% 
+  fitBounds(lng1 = lon_min, lat1 = lat_min,
+            lng2 = lon_max, lat2 = lat_max)
 ```
 
 6. Which county has the highest number of recorded shark attacks? Make a map that only shows the attacks in this county. (hint: it may help improve the map if you remove duplicate locations, i.e. multiple attacks at the same location.)
 
+#San Diego has the highest number of recorded shark attack.s 
 ```{r}
-
+sharks %>%
+  count(county, sort = TRUE)
 ```
+```{r}
+San_Diego <- sharks %>%
+  count(county, sort = TRUE) %>%
+  slice(1) %>%
+  pull(county)
+
+San_Diego <- sharks %>%
+  filter(county == San_Diego) %>%
+  distinct(latitude, longitude, .keep_all = TRUE)
+
+ggmap(map1)+
+  geom_point(data = San_Diego,
+             aes(longitude, latitude),
+             size = 1, color = "blue")+
+  labs(x = "Longitude", y = "Latitude",
+       title = ("Shark Attacks in San_Diego"))
+```
+
 
 
 ## Knit and Upload

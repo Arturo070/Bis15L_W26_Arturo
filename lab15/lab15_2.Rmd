@@ -41,12 +41,12 @@ library(shiny)
 
 ui <- fluidPage(
   
-  titlePanel("Distribution of gestation Length by Order"),
+  titlePanel("Distribution of Gestation Length by Order"),
   
   selectInput("x",
               "Select Order",
               choices=sort(unique(gestation$order)),
-              selected = "Afrosoricida"),
+              selected="Afrosoricida"),
   
   selectInput("y",
               "Select Variable",
@@ -61,15 +61,15 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   
-  output$plot<-renderPlot({
+  output$plot <- renderPlot({
     
     gestation %>% 
       filter(input$x==.data[["order"]]) %>% 
-               ggplot(aes(.data[[input$y]]))+
-               geom_density(fill="steelblue",
-                            color="black",
-                            alpha=0.6)+
-               theme_minimal()
+      ggplot(aes(.data[[input$y]]))+
+      geom_density(fill="steelblue",
+                   color="black",
+                   alpha=0.6)+
+      theme_minimal()
   })
   
 }
@@ -103,16 +103,16 @@ Let's add our ui and server elements to make a functional dashboard. We will put
 
 ui <- dashboardPage(
   
-  dashboardHeader(title="Distribution of Gestation length by Order"),
+  dashboardHeader(title="Distribution of Gestation Length by Order"),
   
-  dashboardSidebar(disable = T),
+  dashboardSidebar(disable=T),
   
   dashboardBody(
     
     selectInput("x",
               "Select Order",
               choices=sort(unique(gestation$order)),
-              selected = "Afrosoricida"),
+              selected="Afrosoricida"),
     
     selectInput("y",
               "Select Variable",
@@ -120,21 +120,22 @@ ui <- dashboardPage(
               selected="gestationlength"),
     
     plotOutput("plot", width="500px", height="400px")
+    
   )
   
 )
 
 server <- function(input, output, session) {
   
-  output$plot<-renderPlot({
+  output$plot <- renderPlot({
     
     gestation %>% 
       filter(input$x==.data[["order"]]) %>% 
-               ggplot(aes(.data[[input$y]]))+
-               geom_density(fill="steelblue",
-                            color="black",
-                            alpha=0.6)+
-               theme_minimal()
+      ggplot(aes(.data[[input$y]]))+
+      geom_density(fill="steelblue",
+                   color="black",
+                   alpha=0.6)+
+      theme_minimal()
   })
   
 }
@@ -144,7 +145,35 @@ shinyApp(ui, server)
 
 Now let's add our server functions.
 ```{r, eval=F, echo=T}
+ui <- dashboardPage(
+  
+  dashboardHeader(title="Distribution of Gestation Length by Order"),
+  
+  dashboardSidebar(disable=T),
+  
+  dashboardBody(
+    
+    selectInput("x",
+              "Select Order",
+              choices=sort(unique(gestation$order)),
+              selected="Afrosoricida"),
+    
+    selectInput("y",
+              "Select Variable",
+              choices = c("bodymass", "longevity", "gestationlength"),
+              selected="gestationlength"),
+    
+    plotOutput("plot", width="500px", height="400px")
+    
+  )
+  
+)
 
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
 ```
 
 What if you want to turn on the sidebar and put the inputs there? We can do that by moving the `selectInput()` functions to the `dashboardSidebar()`.
@@ -221,39 +250,38 @@ wolves %>%
 ```{r, eval=F, echo=T}
 ui <- dashboardPage(
   
-  dashboardHeader(title="SexComposition by Wolf Population"),
+  dashboardHeader(title="Sex Composition by Wolf Population"),
   
-  dashboardSidebar(disable = T),
+  dashboardSidebar(disable=T),
   
   dashboardBody(
     
     selectInput("x",
-              "Select Populationr",
-              choices=sort(unique(wolves$order)),
-              selected = "AK.PEN"),
+              "Select Population",
+              choices=sort(unique(wolves$pop)), #no need to type every pop
+              selected="AK.PEN"),
     
     plotOutput("plot", width="500px", height="400px")
+    
   )
   
 )
 
 server <- function(input, output, session) {
   
-  output$plot<-renderPlot({
+  output$plot <- renderPlot({
     
-    gestation %>% 
-      filter(pop$x== input$x) %>% 
-               ggplot(aes(x=sex, fill=sex))+
-               geom_density(fill="steelblue",
-                            color="black",
-                            alpha=0.6)+
-               theme_minimal()
+    wolves %>% 
+      filter(pop == input$x) %>% 
+      ggplot(aes(x=sex, fill=sex))+
+      geom_bar(alpha=0.8, color="black")+
+      labs(x="Sex", y=NULL)+
+      theme_minimal()
   })
   
 }
 
 shinyApp(ui, server)
-
 ```
 ```
 

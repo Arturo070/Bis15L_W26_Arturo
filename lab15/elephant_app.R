@@ -30,12 +30,6 @@ elephants <- read_csv("data/elephants_data/elephants.csv") %>%
 
 1. There are only three variables in the data. Two are continuous (age, height) and one is categorical (sex). Build an app that compares the range of age and height by sex. Users should be able to select either age or height. Make the app neat, clean, and professional. Use `shinydashboard` to improve the aesthetics of your app.
 ```{r, eval=F, echo=T}
-
-library(tidyverse)
-library(janitor)
-library(shiny)
-library(shinydashboard)
-
 ui <- dashboardPage(
   
   dashboardHeader(title = "Elephant Age & Height"),

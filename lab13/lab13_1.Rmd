@@ -169,6 +169,11 @@ life_history %>%
   mutate(newborn=na_if(newborn, "not measured"))
 ```
 
+```{r}
+names(life_history_no_nas)
+```
+
+
 ## Practice
 Let's practice evaluating NA's in a large data set. The data are compiled from [CITES](https://cites.org/eng). This is the international organization that tracks trade in endangered wildlife. You can find information about the data [here](https://www.kaggle.com/cites/cites-wildlife-trade-database).  
 

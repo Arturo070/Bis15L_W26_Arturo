@@ -135,6 +135,10 @@ sharks %>%
   filter(total_incidents == max(total_incidents))
 ```
 
+```{r}
+names((sharks))
+```
+
 6. Use the table from #5 to make a plot that shows the total number of incidents by county.
 ```{r}
 sharks %>%
